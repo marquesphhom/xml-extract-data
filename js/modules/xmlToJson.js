@@ -5,6 +5,7 @@ export class XmlToJson {
     this.helpers = new Helpers();
     this.dbKeys = this.helpers.keys();
     this.dados = this.helpers.getDados();
+    this.objArray = [];
   }
 
   xmlToTxt(xml){
@@ -15,7 +16,7 @@ export class XmlToJson {
 
   toJson(inputFiles, tags){
     const files = this.getFiles(inputFiles);
-    const objArray = []
+    const objArray = [];
     const obj = {};
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
@@ -31,17 +32,13 @@ export class XmlToJson {
             }
           });
           if(index === tags.length - 1){
-            console.log(obj)
-
+            objArray.push(obj);
+            console.log(objArray);
           }
         })
-        // if(i === files.length - 1){
-        //   objArray.push(obj);
-        //   console.log(obj)
-        // }
-      };
+      };  
     }
-    return objArray;
+    return objArray
   }
 
   getFiles(element){
