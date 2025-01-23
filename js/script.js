@@ -3,5 +3,5 @@ const inputFiles = document.getElementById('files');
 const xmlToJson = new XmlToJson();
 
 inputFiles.addEventListener('change', (e) => {
-  xmlToJson.toJson(e.target, ['dest']);
+  xmlToJson.toJson(e.target, ['dest', 'enderDest']);
 })

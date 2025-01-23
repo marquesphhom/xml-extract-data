@@ -1,17 +1,10 @@
+import { Helpers } from "../helpers/helpers.js";
+
 export class XmlToJson {
   constructor() {
-    this.destObj = {
-      CNPJ: '',
-      xNome: '',
-      xFant: '',
-      IE: '',
-      IM: '',
-      CNAE: '',
-      email: ''
-    };
-    this.dest = ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email'];
-
-    this.enderDest = ['xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone'];
+    this.helpers = new Helpers();
+    this.dbKeys = this.helpers.keys();
+    this.dados = this.helpers.getDados();
   }
 
   xmlToTxt(xml){
@@ -22,6 +15,8 @@ export class XmlToJson {
 
   toJson(inputFiles, tags){
     const files = this.getFiles(inputFiles);
+    const objArray = []
+    const obj = {};
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
@@ -29,15 +24,21 @@ export class XmlToJson {
       reader.onload = () => {
         const xml = reader.result;
         const xmlDoc = this.xmlToTxt(xml);
-        this.dest.forEach(tag => {
-          const element = xmlDoc.getElementsByTagName(tag)[0];
-          if(element) {
-            console.log(element.tagName, element.textContent);
-          }
+        tags.forEach((tag, index) => {
+          this.dados[tag].forEach((element) => {
+            if(xmlDoc.getElementsByTagName(element)[0]){
+              const teste = xmlDoc.getElementsByTagName(element)[0].textContent || undefined;
+              console.log(this.dbKeys[element], teste)
+            }
+          });
         })
+        // if(i === files.length - 1){
+        //   objArray.push(obj);
+        //   console.log(obj)
+        // }
       };
     }
-    //return filesArray;
+    return objArray;
   }
 
   getFiles(element){
