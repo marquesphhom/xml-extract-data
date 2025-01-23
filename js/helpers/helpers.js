@@ -32,7 +32,6 @@ export class Helpers {
   }
  
   getDados(){
-    console.log(this.dados)
     return this.dados
   }
 }

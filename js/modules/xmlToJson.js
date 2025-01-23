@@ -27,10 +27,13 @@ export class XmlToJson {
         tags.forEach((tag, index) => {
           this.dados[tag].forEach((element) => {
             if(xmlDoc.getElementsByTagName(element)[0]){
-              const teste = xmlDoc.getElementsByTagName(element)[0].textContent || undefined;
-              console.log(this.dbKeys[element], teste)
+              obj[this.dbKeys[element]] = xmlDoc.getElementsByTagName(element)[0].textContent;
             }
           });
+          if(index === tags.length - 1){
+            console.log(obj)
+
+          }
         })
         // if(i === files.length - 1){
         //   objArray.push(obj);
