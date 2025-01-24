@@ -8,50 +8,54 @@ export class XmlToJson {
     this.objArray = [];
   }
 
-  xmlToTxt(xml){
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xml, "text/xml");
-    return xmlDoc;
-  }
-
-  toJson(inputFiles, tags){
-    const files = this.getFiles(inputFiles);
-    const objArray = [];
-    const obj = {};
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = () => {
-        const xml = reader.result;
-        const xmlDoc = this.xmlToTxt(xml);
-        tags.forEach((tag, index) => {
-          this.dados[tag].forEach((element) => {
-            if(xmlDoc.getElementsByTagName(element)[0]){
-              obj[this.dbKeys[element]] = xmlDoc.getElementsByTagName(element)[0].textContent;
+  parseXMLFromFiles(inputFile, tags) {
+    return new Promise((resolve, reject) => {
+      const files = inputFile.files;
+      const results = [];
+  
+      if (!files || files.length === 0) {
+        reject(new Error('Nenhum arquivo selecionado.'));
+        return;
+      }
+  
+      Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+  
+        reader.onload = (event) => {
+          const xmlContent = event.target.result;
+  
+          // Parse o conteúdo XML usando DOMParser
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+  
+          const extractedData = {};
+  
+          tags.forEach((tag) => {
+            const elements = xmlDoc.getElementsByTagName(tag);
+            if (elements.length > 0) {
+              // Pega o valor do primeiro elemento correspondente à tag
+              extractedData[tag] = elements[0].textContent;
             }
           });
-          if(index === tags.length - 1){
-            objArray.push(obj);
-            console.log(objArray);
+  
+          results.push(extractedData);
+  
+          // Quando todos os arquivos forem processados, resolvemos a Promise
+          if (index === files.length - 1) {
+            resolve(results);
           }
-        })
-      };  
-    }
-    return objArray
+        };
+  
+        reader.onerror = () => reject(new Error(`Erro ao ler o arquivo: ${file.name}`));
+  
+        reader.readAsText(file);
+      });
+    });
   }
 
   getFiles(element){
     const files = element.files;
     return files;
-  }
-
-  convert() {
-    this.obj = xmlToJson(this.xml);
-  }
-
-  getObj() {
-    return this.obj;
   }
 }
 

@@ -1,8 +1,17 @@
 import { XmlToJson } from "./modules/xmlToJson.js";
-const inputFiles = document.getElementById('files');
+const inputFile = document.getElementById('files');
+const table = document.querySelector('.table')
 const xmlToJson = new XmlToJson();
 
-inputFiles.addEventListener('change', (e) => {
-  const objArray = xmlToJson.toJson(e.target, ['dest', 'enderDest']);
-  console.log(objArray);
+const tags = xmlToJson.dados
+
+inputFile.addEventListener('change', () => {
+  xmlToJson.parseXMLFromFiles(inputFile, tags.dest)
+  .then(data => {
+    data.forEach((d, index) => {
+      console.log(d)
+    })
+  })
 })
+
+
