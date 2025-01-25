@@ -18,20 +18,26 @@ export class Helpers {
       CEP: 'cep', 
       cPais: 'pais', 
       xPais: 'descricao_pais', 
-      fone: 'telefone'
+      fone: 'telefone',
+      cProd: 'codigo_produto',
+      cEAN: 'codigo_ean',
+      xProd: 'produto',
     }
 
+    this.destinatario = ['dest', 'enderDest']
+    this.emitente = ['emit', 'enderEmit']
+    
     this.dados = {
-      'dest': ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email'],
-      'enderDest': ['xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone'],
+      'dest': ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email', 'xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone'],
+      'emit': ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email', 'xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone'],
+      'prod': ['cProd','cEAN','xProd'],
       }
+
+      this.dest = ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email', 'xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone']
   }
 
   keys(){
     return this.dbKeys
   }
  
-  getDados(){
-    return this.dados
-  }
 }
