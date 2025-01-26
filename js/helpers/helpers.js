@@ -22,6 +22,9 @@ export class Helpers {
       cProd: 'codigo_produto',
       cEAN: 'codigo_ean',
       xProd: 'produto',
+      nDup: 'numero_duplicata',
+      dVenc: 'vencimento_duplicata',
+      vDup: 'valor_duplicata',
     }
 
     this.destinatario = ['dest', 'enderDest']
@@ -31,6 +34,7 @@ export class Helpers {
       'dest': ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email', 'xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone'],
       'emit': ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email', 'xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone'],
       'prod': ['cProd','cEAN','xProd'],
+      'dup': ['nDup', 'dVenc', 'vDup'],
       }
 
       this.dest = ['CNPJ', 'xNome', 'xFant', 'IE', 'IM', 'CNAE', 'email', 'xLgr', 'nro', 'xCpl', 'xBairro', 'cMun', 'xMun', 'UF', 'CEP', 'cPais', 'xPais', 'fone']
