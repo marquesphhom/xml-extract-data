@@ -10,7 +10,7 @@ const modal = document.querySelector('.modal')
 
 inputFile.addEventListener('change', async () => {
   modal.classList.add('active')
-  dados = await xmlToJson.parseXMLFromFiles(inputFile, ['emit'])
+  await xmlToJson.parseXMLFromFiles(inputFile, ['emit'])
   .then(data => {
     let temp = []
     table.innerHTML = ''
